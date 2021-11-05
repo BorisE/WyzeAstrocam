@@ -1,0 +1,1 @@
+"c:\Program Files\GraphicsMagick-1.3.36-Q16\gm.exe" convert -average do_*.jpg avg.jpg
