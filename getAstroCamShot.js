@@ -19,12 +19,18 @@
 
     v 1.2 [2021-11-05]
     - path for out images
+    - command line parameters for debug output
 
     v 1.1 [2021-11-02]
     - check if temp image folder exists and create it
     
     v 1.0 [2021-11-01]
     - tested working release
+
+
+    Command line parameters:
+    -debug or -verbose: output messages (better to use in cscript mode)
+   
 
 */
 
@@ -54,8 +60,8 @@ function loadImages()
    // -timelimit 20
    //"d:\Miscellaneous\#App\ffmpeg\bin\ffmpeg.exe" -y -loglevel verbose -stimeout 3000000 -rtsp_transport tcp -i rtsp://boris:astrotest@192.168.1.241/live -frames:v 100 -q:v 2 -r 10 -bufsize 500K -maxrate 1M tmpimages\do_%%d.jpg 
    st="\"" + FFMPEG_PATH + "\" -y -loglevel verbose -stimeout 3000000 -timelimit 20 -rtsp_transport tcp -i " + RTSP_URL + " -frames:v " + Number_Of_Frames_to_Get+ " -q:v 2 -r " + Frame_Rate + " -bufsize 500K -maxrate 1M " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "%d.jpg";
-   WshShell.Run (st,7, true);
    logger(st);
+   WshShell.Run (st,7, true);
 }
 
 /**********************************************************************
@@ -68,8 +74,8 @@ function averageImages()
    
    //"c:\Program Files\GraphicsMagick-1.3.36-Q16\gm.exe" convert -average tmpimages\do_*.jpg avg.jpg
    st="\"" + IMAGE_MAGIC_PATH + "\" convert -average " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "*.jpg " + Out_File_Name;
-   WshShell.Run (st,7, true);
    logger(st);
+   WshShell.Run (st,7, true);
 }
 
 /**********************************************************************
@@ -85,6 +91,7 @@ function prepareImageFolder()
     if (!objFS.FolderExists(TEMP_IMAGE_DIR))
     {
         objFS.CreateFolder (TEMP_IMAGE_DIR);
+        logger("Temp image folder [" + TEMP_IMAGE_DIR + "] created");
         return;
     }
     
@@ -92,6 +99,7 @@ function prepareImageFolder()
 	if (!objFS.FolderExists(OUT_FILENAME_PATH))
     {
         objFS.CreateFolder (OUT_FILENAME_PATH);
+        logger("Out image folder [" + OUT_FILENAME_PATH + "] created");
         return;
     }
     
@@ -106,7 +114,7 @@ function prepareImageFolder()
         objFS.DeleteFile(f.Path);
         i++;
     }
-    logger("Emptying tempimage folder [" + TEMP_IMAGE_DIR + "]. " + i + " files deleted");
+    logger("Emptying temp image folder [" + TEMP_IMAGE_DIR + "]. " + i + " files deleted");
 }
 
 /**********************************************************************
@@ -163,7 +171,7 @@ function clearImages()
     //WScript.echo(s2); 
 
    st = "";
-   logger("”далено повтор€ющихс€ кадов: " + fileDeleteCount);
+   logger("Repeating images deleted: " + fileDeleteCount);
 }
 
 /**********************************************************************
@@ -200,9 +208,37 @@ function logger(message)
    //WshShell.Run (st,7, true);
 }
 
+/**********************************************************************
+ * parse command line parameters
+ **********************************************************************/
+function parseCommandLineParameters()
+{
+    var args = WScript.Arguments;
+    for (var i= 0; i < args.length; i++) {
+        if (args(i) == "-debug" || args(i) == "-verbose")
+        {
+            silentMode = false;
+        }
+    } 
+
+}
+
+/**********************************************************************
+ * Output information (valid for debug mode only)
+ **********************************************************************/
+function headerOutput()
+{
+    logger("getAstroCamShot script");
+    logger("Camera url: " + RTSP_URL);
+    logger("Using verbose mode");            
+    logger("");
+    logger("");
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+parseCommandLineParameters();
+headerOutput();
 prepareImageFolder();
 loadImages();
 clearImages();

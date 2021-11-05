@@ -1,1 +1,3 @@
-cscript getAstroCamShot.js
+cscript getAstroCamShot.js -debug
+
+pause
