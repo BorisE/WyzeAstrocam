@@ -1,0 +1,1 @@
+move images\* images_archive

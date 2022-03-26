@@ -1,6 +1,7 @@
 /*
     getAstroCamShot.js
     (c) by Boris Emchenko 2021
+    http://astromania.info
     
     Script for creating combined (integrated) image from WyzeCam v3 RTSP stream
     
@@ -35,7 +36,7 @@
 */
 
 //Options initialization
-var RTSP_URL="rtsp://boris:astrotest@192.168.1.241/live";
+var RTSP_URL="rtsp://boris:astrotest@192.168.1.120/live";
 var FFMPEG_PATH= "d:\\Miscellaneous\\#App\\ffmpeg\\bin\\ffmpeg.exe";
 var IMAGE_MAGIC_PATH= "c:\\Program Files\\GraphicsMagick-1.3.36-Q16\\gm.exe";
 var TEMP_IMAGE_DIR="tmpimages\\";                                                       // mandatory  "/" at the end
