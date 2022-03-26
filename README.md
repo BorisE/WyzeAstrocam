@@ -33,13 +33,29 @@
 			2) Make video from individual frames (ffmpeg)
 			If file AstroCam_overlay.png found it would be overlayed over movie
 			
-			
 	Other files:
 	1) getAstroCamShot.bat
 		- bat wrapper for getAstroCamShot.js
 	2) makeAVI.bat
 		- bat wrapper for makeAVI.js
-	3) get_wyze_image.bat
-		- bat file for debuging
-	4) sum_images.bat
-		- bat file for debuging
+	3) archiveImages.bat		
+		- moves temp images to archive
+
+	For debug purposes only:
+	1) get_wyze_image.bat
+		- bat file for debuging saving images from camera
+	2) sum_images.bat
+		- bat file for debuging combining images
+
+
+	Using TASK SCHEDULER
+	
+	Recommended to create 3 task:
+	1) Run getAstroCamShot.js as often as you wish (be carefull not to run too frequently) from till  you need it 
+		example - timelapse_taskmanager.xml
+	2) Run makeAVI when you want to create AVI from the files, that are present in image folder at this moment. I run it after task 1 stops running (in morning)
+		example - timelapse_makeavi_taskmanager.xml
+	3) Run archiveImages after task 2 finishing to move frames to archive folder. Or just delete them
+		example - timelapse_archiveimages_taskmanager.xml
+	
+	
