@@ -36,12 +36,12 @@
 */
 
 //Options initialization
-var RTSP_URL="rtsp://boris:astrotest@192.168.1.120/live";
-var FFMPEG_PATH= "d:\\Miscellaneous\\#App\\ffmpeg\\bin\\ffmpeg.exe";
+var RTSP_URL="rtsp://borise:astrotest@192.168.2.112/live";
+var FFMPEG_PATH= "d:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
 var IMAGE_MAGIC_PATH= "c:\\Program Files\\GraphicsMagick-1.3.36-Q16\\gm.exe";
 var TEMP_IMAGE_DIR="tmpimages\\";                                                       // mandatory  "/" at the end
 var TEMP_IMAGE_PREFIX = "do_";
-var OUT_FILENAME_PATH = "images\\";                                            // mandatory  "/" at the end
+var OUT_FILENAME_PATH = "frames\\";                                            			// mandatory  "/" at the end
 var OUT_FILENAME_PREFIX = "AstroCam_";
 
 var silentMode = true;                                                                  // prevent any messages
@@ -80,7 +80,7 @@ function averageImages()
 }
 
 /**********************************************************************
- * Check if tmep image folder exists
+ * Check if temp image folder exists
  * Create if not
  * Empty (delete) images from the folder if yes
  **********************************************************************/

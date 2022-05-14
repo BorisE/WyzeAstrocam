@@ -22,11 +22,13 @@
 */
 
 //Options initialization
-var FFMPEG_PATH= "d:\\Miscellaneous\\#App\\ffmpeg\\bin\\ffmpeg.exe";
-var OUT_FILENAME_PATH = "images\\";                                                 // Path to source files. mandatory  "/" at the end
+var FFMPEG_PATH= "d:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
+var OUT_FILENAME_PATH = "frames\\";                                                 // Path to source files. mandatory  "/" at the end
 var OUT_FILENAME_PREFIX = "AstroCam_";                                              // Source files should begins with it (format: "AstroCam_2021-11-06_05-00-16.jpg", i.e. AstroCam_YYYY-MM-DD_HH-mm-ss.jpg)
-var AVI_TEMPIMAGES_PATH = "aviimages\\";                                            // Temp images folder. mandatory  "/" at the end
-var AVI_OVERLAY_IMAGE = "AstroCam_overlay.png";                                     // Full path to overlay image. Could be empty
+var AVI_TEMPIMAGES_PATH = "tmpaviimages\\";                                            // Temp images folder. mandatory  "/" at the end
+var AVI_OVERLAY_IMAGE = "AstroCam_overlay.png";                                     // Full path to overlay image. Could be empty. But if file specified, it should be in place!
+var AVI_MOVIE_OUTPATH = "avi\\";
+//var AVI_OVERLAY_IMAGE = "";                                     					// No overlay
 var silentMode = true;                                                              // Prevent any messages
 
 
@@ -105,20 +107,8 @@ function prepareImageFolder()
  **********************************************************************/
 function makeAvi()
 {
-    AVI_FILE = OutBaseName + ".mp4";
-    if (AVI_OVERLAY_IMAGE == "")
-    {
-        // no overlay image
-        //ffmpeg -r 5 -f image2 -s 1920x1080 -i avi/AstroCam_2021-11-05_%%04d.jpg -vcodec libx264 -crf 25  -pix_fmt yuv420p test.mp4
-        st="\"" + FFMPEG_PATH + "\" -y -r 25 -f image2 -s 1920x1080 -i " + AVI_TEMPIMAGES_PATH + OutBaseName + "_%04d.jpg -vcodec libx264 -crf 25  -pix_fmt yuv420p " + AVI_FILE + "";        
-    }
-    else 
-    {
-        // there is overlay image
-        //ffmpeg -r 5 -f image2 -s 1920x1080 -i avi/AstroCam_2021-11-05_%%04d.jpg -i AstroCam_overlay.png -filter_complex "[0:v][1:v] overlay=0:0" -vcodec libx264 -crf 25  -pix_fmt yuv420p test_overlay.mp4
-        st="\"" + FFMPEG_PATH + "\" -y -r 25 -f image2 -s 1920x1080 -i " + AVI_TEMPIMAGES_PATH + OutBaseName + "_%04d.jpg -i " + AVI_OVERLAY_IMAGE +" -filter_complex \"[0:v][1:v] overlay=0:0\" -vcodec libx264 -crf 25  -pix_fmt yuv420p " + AVI_FILE + "";        
-    }
-    st="\"" + FFMPEG_PATH + "\" -y -r 25 -f image2 -s 1920x1080 -i " + AVI_TEMPIMAGES_PATH + OutBaseName + "_%04d.jpg " + (AVI_OVERLAY_IMAGE != ""? "-i " + AVI_OVERLAY_IMAGE +" -filter_complex \"[0:v][1:v] overlay=0:0\" ":"") + "-vcodec libx264 -crf 25  -pix_fmt yuv420p " + AVI_FILE + "";        
+    AVI_FILE = AVI_MOVIE_OUTPATH + OutBaseName + ".mp4";
+    st="\"" + FFMPEG_PATH + "\" -y -r 24 -f image2 -s 1920x1080 -i " + AVI_TEMPIMAGES_PATH + OutBaseName + "_%04d.jpg " + (AVI_OVERLAY_IMAGE != ""? "-i " + AVI_OVERLAY_IMAGE +" -filter_complex \"[0:v][1:v] overlay=0:0\" ":"") + "-vcodec libx264 -crf 25  -pix_fmt yuv420p " + AVI_FILE + "";        
     logger(st);
     WshShell.Run (st,7, true);
 }

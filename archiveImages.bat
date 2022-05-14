@@ -1,1 +1,2 @@
-move images\* images_archive
+copy /y avi\* e:\FITSUpload
+move frames\* images_archive
