@@ -60,6 +60,7 @@
 	Recommended to create 3 task:
 	1) Run getAstroCamShot.js (or getAstroCamShot_sunevents.bat) as often as you wish (be carefull not to run too frequently) from till  you need it 
 		example - timelapse_taskmanager.xml
+		advice: Task should be run like this: "cmd" and parameters "/c start /min "WyzeCam" D:\ASCOMscripts\WyzeAstrocam\getAstroCamShot_sunevents.bat ^& exit" - then program will start minimized
 	2) Run makeAVI.js (or makeAVI_on_sunrise.bat) when you want to create AVI from the files, that are present in image folder at this moment. I run it after task 1 stops running (in morning)
 		example - timelapse_makeavi_taskmanager.xml
 	3) Run archiveImages (or archiveImages_on_sunrise.bat) after task 2 finishing to move frames to archive folder. Or just delete them
