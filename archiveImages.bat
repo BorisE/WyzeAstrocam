@@ -1,2 +1,2 @@
-copy /y avi\* e:\FITSUpload
-move frames\* images_archive
+copy /y e:\AllSky\* e:\FITSUpload
+move e:\AllSky\frames\* e:\AllSky\images_archive

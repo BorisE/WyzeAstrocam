@@ -22,12 +22,12 @@
 */
 
 //Options initialization
-var FFMPEG_PATH= "d:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
-var OUT_FILENAME_PATH = "frames\\";                                                 // Path to source files. mandatory  "/" at the end
+var FFMPEG_PATH= "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
+var OUT_FILENAME_PATH = "e:\\AllSky\\frames\\";                                                 // Path to source files. mandatory  "/" at the end
 var OUT_FILENAME_PREFIX = "AstroCam_";                                              // Source files should begins with it (format: "AstroCam_2021-11-06_05-00-16.jpg", i.e. AstroCam_YYYY-MM-DD_HH-mm-ss.jpg)
-var AVI_TEMPIMAGES_PATH = "tmpaviimages\\";                                            // Temp images folder. mandatory  "/" at the end
+var AVI_TEMPIMAGES_PATH = "e:\\AllSky\\tmpaviimages\\";                                            // Temp images folder. mandatory  "/" at the end
 var AVI_OVERLAY_IMAGE = "AstroCam_overlay.png";                                     // Full path to overlay image. Could be empty. But if file specified, it should be in place!
-var AVI_MOVIE_OUTPATH = "avi\\";
+var AVI_MOVIE_OUTPATH = "e:\\AllSky\\";
 //var AVI_OVERLAY_IMAGE = "";                                     					// No overlay
 var silentMode = true;                                                              // Prevent any messages
 
