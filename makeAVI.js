@@ -6,11 +6,15 @@
     
     1) Copy images to avitempfolder and rename them (0001 - 9999), so ffmpeg could work with them
     2) Make video from individual frames (ffmpeg)
+	3) Make from every frame keogram stamps
+	4) Make keogram file individual keogram stamps
 
     Need to install:
     1) ffmpeg package  
     Zeranoe FFmpeg Builds <http://ffmpeg.zeranoe.com/builds/>
     tested with build: ffmpeg-20200424-a501947-win64-static
+	2) ImageMagick (for Keograms)
+	tested on ImageMagick-7.1.1-20-Q16-HDRI-x64-dll.exe
 
 
     v 2.0 [2023-10-15]
