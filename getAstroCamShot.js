@@ -18,6 +18,9 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
+    v 2.0 [2025-08-29]
+    - read Alt Az and write it to filename
+
     v 1.2 [2021-11-05]
     - path for out images
     - command line parameters for debug output
