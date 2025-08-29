@@ -18,6 +18,9 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
+    v 2.0 [2025-08-29]
+    - read Alt Az and write it to filename
+
     v 1.2 [2021-11-05]
     - path for out images
     - command line parameters for debug output
@@ -43,6 +46,7 @@ var TEMP_IMAGE_DIR="e:\\AllSky\\tmpimages\\";                                   
 var TEMP_IMAGE_PREFIX = "do_";
 var OUT_FILENAME_PATH = "e:\\AllSky\\frames\\";                                            			// mandatory  "/" at the end
 var OUT_FILENAME_PREFIX = "AstroCam_";
+var ASCOM_TELESCOPE_PROGID = "EQMOD.Telescope";
 
 var silentMode = true;                                                                  // prevent any messages
 var Number_Of_Frames_to_Get = 25;                                                       // number of frames to capture
@@ -71,7 +75,12 @@ function loadImages()
 function averageImages()
 {
    var ts = formatDateTime(new Date());
-   var Out_File_Name = OUT_FILENAME_PATH + OUT_FILENAME_PREFIX + ts + ".jpg";
+   var coords = getTelescopeAltAz();
+   var coordText = "";
+   if (coords) {
+       coordText = "_az_" + formatDegMin(coords.az, 3) + "_alt_" + formatDegMin(coords.alt, 2);
+   }
+   var Out_File_Name = OUT_FILENAME_PATH + OUT_FILENAME_PREFIX + ts + coordText + ".jpg";
    
    //"c:\Program Files\GraphicsMagick-1.3.36-Q16\gm.exe" convert -average tmpimages\do_*.jpg avg.jpg
    st="\"" + IMAGE_MAGIC_PATH + "\" convert -average " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "*.jpg " + Out_File_Name;
@@ -173,6 +182,40 @@ function clearImages()
 
    st = "";
    logger("Repeating images deleted: " + fileDeleteCount);
+}
+
+/**********************************************************************
+ * Get Alt/Az coordinates from ASCOM mount
+ **********************************************************************/
+function getTelescopeAltAz()
+{
+    try {
+        var telescope = new ActiveXObject(ASCOM_TELESCOPE_PROGID);
+        telescope.Connected = true;
+        var alt = telescope.Altitude;
+        var az = telescope.Azimuth;
+        telescope.Connected = false;
+        return {alt: alt, az: az};
+    }
+    catch (e) {
+        logger("ASCOM connection failed: " + e.message);
+        return null;
+    }
+}
+
+/**********************************************************************
+ * Format degrees to DEG-MIN string
+ **********************************************************************/
+function formatDegMin(value, padDeg)
+{
+    var sign = value < 0 ? "-" : "";
+    value = Math.abs(value);
+    var deg = Math.floor(value);
+    var minutes = Math.round((value - deg) * 60);
+    if (minutes == 60) { minutes = 0; deg += 1; }
+    var degStr = ("000" + deg).slice(-padDeg);
+    var minStr = ("0" + minutes).slice(-2);
+    return sign + degStr + "-" + minStr;
 }
 
 /**********************************************************************
