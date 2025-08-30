@@ -1,7 +1,7 @@
 # WyzeAstrocam
 
 getAstroCamShot.js & makeAVI.js  
-(c) by Boris Emchenko 2021-2022
+(c) by Boris Emchenko 2021-2025
 
 Script for creating a combined (integrated) image from a WyzeCam v3 RTSP stream.  
 Prerequisites: the WyzeCam must be flashed with the official beta firmware to enable RTSP streaming.
@@ -69,7 +69,7 @@ Required software:
 ## Version history
 
 ### getAstroCamShot.js
-- v1.3 [2025-08-30] - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
+- v2.0 [2025-08-30] - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
 - v1.2 [2021-11-05] - path for output images and command line parameters for debug output
 - v1.1 [2021-11-02] - check if temp image folder exists and create it
 - v1.0 [2021-11-01] - tested working release

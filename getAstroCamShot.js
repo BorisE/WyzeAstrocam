@@ -1,6 +1,6 @@
 /*
     getAstroCamShot.js
-    (c) by Boris Emchenko 2021
+    (c) by Boris Emchenko 2021-2025
     http://astromania.info
     
     Script for creating combined (integrated) image from WyzeCam v3 RTSP stream
@@ -18,7 +18,7 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
-    v 1.3 [2025-08-30]
+    v 2.0 [2025-08-30]
     - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
 
     v 1.2 [2021-11-05]
@@ -34,23 +34,27 @@
 
     Command line parameters:
     -debug or -verbose: output messages (better to use in cscript mode)
-   
 
 */
 
 //Options initialization
-var RTSP_URL="rtsp://borise:astrotest@192.168.2.112/live";
-var FFMPEG_PATH= "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
-var IMAGE_MAGIC_PATH= "c:\\Program Files\\GraphicsMagick-1.3.36-Q16\\gm.exe";
-var TEMP_IMAGE_DIR="e:\\AllSky\\tmpimages\\";                                                       // mandatory  "/" at the end
-var TEMP_IMAGE_PREFIX = "do_";
-var OUT_FILENAME_PATH = "e:\\AllSky\\frames\\";                                            			// mandatory  "/" at the end
-var OUT_FILENAME_PREFIX = "AstroCam_";
-var ASCOM_TELESCOPE_PROGID = "EQMOD.Telescope";
+var SCRIPT_VERSION            = "2.0";
+var SCRIPT_DATE               = "2025-08-30";
+var RTSP_URL                  = "rtsp://borise:astrotest@192.168.2.112/live";
+var FFMPEG_PATH               = "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
+var IMAGE_MAGIC_PATH          = "c:\\Program Files\\GraphicsMagick-1.3.36-Q16\\gm.exe";
+var TEMP_IMAGE_DIR            = "e:\\AllSky\\tmpimages\\";                                   // mandatory  "/" at the end
+var TEMP_IMAGE_PREFIX         = "do_";
+var OUT_FILENAME_PATH         = "e:\\AllSky\\frames\\";                                      // mandatory  "/" at the end
+var OUT_FILENAME_PREFIX       = "AstroCam_";
 
-var silentMode = true;                                                                  // prevent any messages
-var Number_Of_Frames_to_Get = 25;                                                       // number of frames to capture
-var Frame_Rate = 2;                                                                     // ffmpeg capturing frame rate
+var ASCOM_TELESCOPE_PROGID    = "EQMOD.Telescope";
+
+var Number_Of_Frames_to_Get = 25;                                                            // number of frames to capture
+var Frame_Rate = 2;                                                                          // ffmpeg capturing frame rate
+
+var silentMode = true;                                                                       // prevent any messages
+
 
 //Initialization    
 var WshShell = new ActiveXObject("WScript.Shell");
@@ -287,6 +291,7 @@ function parseCommandLineParameters()
 function headerOutput()
 {
     logger("getAstroCamShot script");
+    logger("version " + SCRIPT_VERSION + " from " + SCRIPT_DATE);
     logger("Camera url: " + RTSP_URL);
     logger("Using verbose mode");            
     logger("");
