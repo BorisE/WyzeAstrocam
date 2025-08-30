@@ -100,9 +100,15 @@ function prepareImageFolder()
 		f = fc.item();
         var oldFileName = f.Name;
         if (j==1) {
-            var result = oldFileName.match('(' + OUT_FILENAME_PREFIX + '(\\d+)-(\\d+)-(\\d+))_(.*).jpg');
-            OutBaseName = result[1];
-        } 
+            var regex = new RegExp('(' + OUT_FILENAME_PREFIX + '(\\d+)-(\\d+)-(\\d+))_(.*)\\.jpg');
+            var result = oldFileName.match(regex);
+            if (result) {
+                OutBaseName = result[1];
+            } else {
+                logger('Filename [' + oldFileName + '] does not match expected pattern');
+                continue;
+            }
+        }
         var newFileName = OutBaseName + "_" +  padNumber(j, 4) +".jpg";
         //logger("["+newFileName+"]");
         //f.Name = newFileName;
