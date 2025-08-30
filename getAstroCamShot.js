@@ -71,7 +71,7 @@ function loadImages()
 {
    // -timelimit 20
    //"d:\Miscellaneous\#App\ffmpeg\bin\ffmpeg.exe" -y -loglevel verbose -stimeout 3000000 -rtsp_transport tcp -i rtsp://boris:astrotest@192.168.1.241/live -frames:v 100 -q:v 2 -r 10 -bufsize 500K -maxrate 1M tmpimages\do_%%d.jpg 
-   st="\"" + FFMPEG_PATH + "\" -y -loglevel verbose -stimeout 3000000 -timelimit 20 -rtsp_transport tcp -i " + RTSP_URL + " -frames:v " + Number_Of_Frames_to_Get+ " -q:v 2 -r " + Frame_Rate + " -bufsize 500K -maxrate 1M " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "%d.jpg";
+    var st = "\"" + FFMPEG_PATH + "\" -y -loglevel verbose -stimeout 3000000 -timelimit 20 -rtsp_transport tcp -i " + RTSP_URL + " -frames:v " + Number_Of_Frames_to_Get+ " -q:v 2 -r " + Frame_Rate + " -bufsize 500K -maxrate 1M " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "%d.jpg";
    logger(st);
    WshShell.Run (st,7, true);
 }
@@ -94,7 +94,7 @@ function averageImages()
    var Out_File_Name = OUT_FILENAME_PATH + OUT_FILENAME_PREFIX + ts + coordText + sideText + ".jpg";
    
    //"c:\Program Files\GraphicsMagick-1.3.36-Q16\gm.exe" convert -average tmpimages\do_*.jpg avg.jpg
-   st="\"" + IMAGE_MAGIC_PATH + "\" convert -average " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "*.jpg " + Out_File_Name;
+    var st = "\"" + IMAGE_MAGIC_PATH + "\" convert -average " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "*.jpg " + Out_File_Name;
    logger(st);
    WshShell.Run (st,7, true);
 }
@@ -191,7 +191,6 @@ function clearImages()
     }
     //WScript.echo(s2); 
 
-   st = "";
    logger("Repeating images deleted: " + fileDeleteCount);
 }
 

@@ -147,7 +147,7 @@ function prepareImageFolder()
 function makeAvi()
 {
     AVI_FILE = AVI_MOVIE_OUTPATH + OutBaseName + ".mp4";
-    st="\"" + FFMPEG_PATH + "\" -y -r 24 -f image2 -s 1920x1080 -i " + AVI_TEMPIMAGES_PATH + OutBaseName + "_%04d.jpg " + (AVI_OVERLAY_IMAGE != ""? "-i " + AVI_OVERLAY_IMAGE +" -filter_complex \"[0:v][1:v] overlay=0:0\" ":"") + "-vcodec libx264 -crf 25  -pix_fmt yuv420p " + AVI_FILE + "";        
+    var st = "\"" + FFMPEG_PATH + "\" -y -r 24 -f image2 -s 1920x1080 -i " + AVI_TEMPIMAGES_PATH + OutBaseName + "_%04d.jpg " + (AVI_OVERLAY_IMAGE != ""? "-i " + AVI_OVERLAY_IMAGE +" -filter_complex \"[0:v][1:v] overlay=0:0\" ":"") + "-vcodec libx264 -crf 25  -pix_fmt yuv420p " + AVI_FILE + "";
     logger(st);
     WshShell.Run (st,7, true);
 }
@@ -157,7 +157,7 @@ function makeAvi()
  **********************************************************************/
 function makeTempKeoImages()
 {
-    st="magick mogrify -crop 1x1080+959+0 -path "  + KEO_TEMP_FOLDER + " " + AVI_TEMPIMAGES_PATH + "*.jpg";
+    var st = "magick mogrify -crop 1x1080+959+0 -path "  + KEO_TEMP_FOLDER + " " + AVI_TEMPIMAGES_PATH + "*.jpg";
     logger(st);
     WshShell.Run (st,7, true);
 }
@@ -168,7 +168,7 @@ function makeTempKeoImages()
 function makeKeogramm()
 {
     KEOGRAM_FILE = AVI_MOVIE_OUTPATH + "keogram_" + OutBaseName + ".jpg";
-    st="magick montage -geometry +0+0 -tile x1 " + KEO_TEMP_FOLDER + "*.jpg " + KEOGRAM_FILE;
+    var st = "magick montage -geometry +0+0 -tile x1 " + KEO_TEMP_FOLDER + "*.jpg " + KEOGRAM_FILE;
     logger(st);
     WshShell.Run (st,7, true);
 }
