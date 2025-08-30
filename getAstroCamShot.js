@@ -18,6 +18,9 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
+    v 2.3 [2025-08-30]
+    - detect mount motion and append distance to filenames
+
     v 2.2 [2025-08-30]
     - bugifx using codex
 
@@ -42,7 +45,7 @@
     -debug or -verbose: output messages (better to use in cscript mode)
 
 */
-var SCRIPT_VERSION            = "2.2";
+var SCRIPT_VERSION            = "2.3";
 var SCRIPT_DATE               = "2025-08-30";
 
 //Options initialization
@@ -55,6 +58,8 @@ var OUT_FILENAME_PATH         = "f:\\AllSky\\frames\\";                         
 var OUT_FILENAME_PREFIX       = "AstroCam_";
 
 var ASCOM_TELESCOPE_PROGID    = "EQMOD.Telescope";
+
+var MOUNT_MOVE_THRESHOLD      = 1.5;                                                          // degrees
 
 var Number_Of_Frames_to_Get = 25;                                                            // number of frames to capture
 var Frame_Rate = 2;                                                                          // ffmpeg capturing frame rate
@@ -82,10 +87,9 @@ function loadImages()
 /**********************************************************************
  * Combine with averaging saved frames
  **********************************************************************/
-function averageImages()
+function averageImages(coords, dist)
 {
    var ts = formatDateTime(new Date());
-   var coords = getTelescopeAltAz();
    var coordText = "";
 
    var sideText = "";
@@ -94,7 +98,11 @@ function averageImages()
        if (coords.side)
            sideText = "_" + coords.side;
    }
-   var Out_File_Name = OUT_FILENAME_PATH + OUT_FILENAME_PREFIX + ts + coordText + sideText + ".jpg";
+   var distText = "";
+   if (dist != null && dist > MOUNT_MOVE_THRESHOLD) {
+       distText = "_dist_" + dist.toFixed(1);
+   }
+   var Out_File_Name = OUT_FILENAME_PATH + OUT_FILENAME_PREFIX + ts + coordText + sideText + distText + ".jpg";
    
    //"c:\Program Files\GraphicsMagick-1.3.36-Q16\gm.exe" convert -average tmpimages\do_*.jpg avg.jpg
     var st = "\"" + IMAGE_MAGIC_PATH + "\" convert -average " + TEMP_IMAGE_DIR + TEMP_IMAGE_PREFIX + "*.jpg " + Out_File_Name;
@@ -227,6 +235,26 @@ function getTelescopeAltAz()
 }
 
 /**********************************************************************
+ * Calculate angular distance between two Alt/Az positions
+ **********************************************************************/
+function angularDistance(c1, c2)
+{
+    if (!c1 || !c2)
+        return null;
+    var alt1 = deg2rad(c1.alt);
+    var az1 = deg2rad(c1.az);
+    var alt2 = deg2rad(c2.alt);
+    var az2 = deg2rad(c2.az);
+    var cosD = Math.sin(alt1) * Math.sin(alt2) + Math.cos(alt1) * Math.cos(alt2) * Math.cos(az1 - az2);
+    if (cosD > 1) cosD = 1;
+    if (cosD < -1) cosD = -1;
+    return rad2deg(Math.acos(cosD));
+}
+
+function deg2rad(d) { return d * Math.PI / 180; }
+function rad2deg(r) { return r * 180 / Math.PI; }
+
+/**********************************************************************
  * Format degrees to DEG-MIN string
  **********************************************************************/
 function formatDegMin(value, padDeg)
@@ -309,6 +337,9 @@ function headerOutput()
 parseCommandLineParameters();
 headerOutput();
 prepareImageFolder();
+var startCoords = getTelescopeAltAz();
 loadImages();
+var endCoords = getTelescopeAltAz();
+var moveDist = angularDistance(startCoords, endCoords);
 clearImages();
-averageImages();
+averageImages(endCoords, moveDist);
