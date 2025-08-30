@@ -237,12 +237,16 @@ function headerOutput()
 
 parseCommandLineParameters();
 headerOutput();
-prepareImageFolder();
-if (createAVI) {
-	makeAvi();
+var prepStatus = prepareImageFolder();
+if (prepStatus !== 0) {
+        logger("prepareImageFolder failed with status " + prepStatus + ", exiting");
+        WScript.Quit(prepStatus);
 }
-if (createKeogram) 
+if (createAVI) {
+        makeAvi();
+}
+if (createKeogram)
 {
-	makeTempKeoImages();
-	makeKeogramm();
+        makeTempKeoImages();
+        makeKeogramm();
 }
