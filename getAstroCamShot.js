@@ -18,8 +18,11 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
-    v 2.0 [2025-08-30]
+
+    v 2.1 [2025-08-30]
     - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
+    v 2.0 [2025-08-29]
+    - read Alt Az and write it to filename
 
     v 1.2 [2021-11-05]
     - path for out images
@@ -81,6 +84,7 @@ function averageImages()
    var ts = formatDateTime(new Date());
    var coords = getTelescopeAltAz();
    var coordText = "";
+
    var sideText = "";
    if (coords) {
        coordText = "_az_" + formatDegMin(coords.az, 3) + "_alt_" + formatDegMin(coords.alt, 2);
