@@ -1,5 +1,5 @@
 :Variables
-@SET SourcePath=e:\AllSky
+@SET SourcePath=f:\AllSky
 @SET DestPath=E:\FITSUpload
 
 :SUNWAIT

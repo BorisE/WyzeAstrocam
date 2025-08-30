@@ -46,9 +46,9 @@ var SCRIPT_DATE               = "2025-08-30";
 var RTSP_URL                  = "rtsp://borise:astrotest@192.168.2.112/live";
 var FFMPEG_PATH               = "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
 var IMAGE_MAGIC_PATH          = "c:\\Program Files\\GraphicsMagick-1.3.36-Q16\\gm.exe";
-var TEMP_IMAGE_DIR            = "e:\\AllSky\\tmpimages\\";                                   // mandatory  "/" at the end
+var TEMP_IMAGE_DIR            = "f:\\AllSky\\tmpimages\\";                                   // mandatory  "/" at the end
 var TEMP_IMAGE_PREFIX         = "do_";
-var OUT_FILENAME_PATH         = "e:\\AllSky\\frames\\";                                      // mandatory  "/" at the end
+var OUT_FILENAME_PATH         = "f:\\AllSky\\frames\\";                                      // mandatory  "/" at the end
 var OUT_FILENAME_PREFIX       = "AstroCam_";
 
 var ASCOM_TELESCOPE_PROGID    = "EQMOD.Telescope";

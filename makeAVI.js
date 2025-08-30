@@ -28,18 +28,20 @@
 */
 
 //Options initialization
-var FFMPEG_PATH= "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
-var OUT_FILENAME_PATH = "e:\\AllSky\\frames\\";                                     // Path to source files. mandatory  "/" at the end
-var OUT_FILENAME_PREFIX = "AstroCam_";                                              // Source files should begins with it (format: "AstroCam_2021-11-06_05-00-16.jpg", i.e. AstroCam_YYYY-MM-DD_HH-mm-ss.jpg)
-var AVI_TEMPIMAGES_PATH = "e:\\AllSky\\tmpaviimages\\";                             // Temp images folder. mandatory  "/" at the end
-var AVI_OVERLAY_IMAGE = "AstroCam_overlay.png";                                     // Full path to overlay image. Could be empty. But if file specified, it should be in place!
-var AVI_MOVIE_OUTPATH = "e:\\AllSky\\";
-var KEO_TEMP_FOLDER = "e:\\AllSky\\keo\\";                                          // Path to temp keogram images folder. mandatory  "/" at the end
-//var AVI_OVERLAY_IMAGE = "";                                     					// No overlay
-var silentMode = true;                                                              // Prevent any messages
+var FFMPEG_PATH				= "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
+var OUT_FILENAME_PATH 		= "f:\\AllSky\\frames\\";                                   // Path to source files. mandatory  "/" at the end
+var OUT_FILENAME_PREFIX 	= "AstroCam_";                                              // Source files should begins with it (format: "AstroCam_2021-11-06_05-00-16.jpg", i.e. AstroCam_YYYY-MM-DD_HH-mm-ss.jpg)
+var AVI_TEMPIMAGES_PATH 	= "f:\\AllSky\\tmpaviimages\\";                             // Temp images folder. mandatory  "/" at the end
+var AVI_OVERLAY_IMAGE 		= "AstroCam_overlay.png";                                   // Full path to overlay image. Could be empty. But if file specified, it should be in place!
+//var AVI_OVERLAY_IMAGE = "";                                     						// No overlay
+var AVI_MOVIE_OUTPATH 		= "f:\\AllSky\\";
+var KEO_TEMP_FOLDER 		= "f:\\AllSky\\keo\\";                                      // Path to temp keogram images folder. mandatory  "/" at the end
 
-var createAVI = true;																// Create AVI with timelapse
-var createKeogram = true;															// Create Keogram
+var createAVI 				= true;														// Create AVI with timelapse
+var createKeogram 			= true;														// Create Keogram
+
+var silentMode 				= true;                                                     // Prevent any messages
+
 
 //Initialization    
 var WshShell = new ActiveXObject("WScript.Shell");
