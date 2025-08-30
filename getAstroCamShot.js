@@ -126,8 +126,8 @@ function prepareImageFolder()
     
     folder = objFS.GetFolder(TEMP_IMAGE_DIR);
    
-	fc = new Enumerator(folder.files);
-    i=0;
+        fc = new Enumerator(folder.files);
+    var i=0;
 
 	for (; !fc.atEnd(); fc.moveNext())
 	{
