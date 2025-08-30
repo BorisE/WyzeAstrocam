@@ -49,6 +49,7 @@ var objFS = new ActiveXObject("Scripting.FileSystemObject");
 
 var OutBaseName = "";   // would be calculated further
 var AVI_FILE = "";      // would be calculated further. Name of avi file begins with OUT_FILENAME_PREFIX and date of the first frame, i.e. "AstroCam_2021-11-05.mp4"
+var KEOGRAM_FILE = "";   // would be calculated further
 
 /**********************************************************************
  * Check if temp image folder exists
