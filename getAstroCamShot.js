@@ -18,6 +18,9 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
+    v 2.2 [2025-08-30]
+    - bugifx using codex
+
     v 2.1 [2025-08-30]
     - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
     
@@ -39,10 +42,10 @@
     -debug or -verbose: output messages (better to use in cscript mode)
 
 */
+var SCRIPT_VERSION            = "2.2";
+var SCRIPT_DATE               = "2025-08-30";
 
 //Options initialization
-var SCRIPT_VERSION            = "2.1";
-var SCRIPT_DATE               = "2025-08-30";
 var RTSP_URL                  = "rtsp://borise:astrotest@192.168.2.112/live";
 var FFMPEG_PATH               = "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
 var IMAGE_MAGIC_PATH          = "c:\\Program Files\\GraphicsMagick-1.3.36-Q16\\gm.exe";
@@ -106,9 +109,9 @@ function averageImages()
  **********************************************************************/
 function prepareImageFolder()
 {
-        var folder, f, fc;
+    var folder, f, fc;
 
-        // Ensure Temp folder exists
+    // Ensure Temp folder exists
     if (!objFS.FolderExists(TEMP_IMAGE_DIR))
     {
         objFS.CreateFolder (TEMP_IMAGE_DIR);
@@ -116,7 +119,7 @@ function prepareImageFolder()
     }
 
     // Ensure Out folder exists
-        if (!objFS.FolderExists(OUT_FILENAME_PATH))
+    if (!objFS.FolderExists(OUT_FILENAME_PATH))
     {
         objFS.CreateFolder (OUT_FILENAME_PATH);
         logger("Out image folder [" + OUT_FILENAME_PATH + "] created");
@@ -125,7 +128,7 @@ function prepareImageFolder()
     // Clean up Temp folder even if it was just created
     folder = objFS.GetFolder(TEMP_IMAGE_DIR);
 
-        fc = new Enumerator(folder.files);
+    fc = new Enumerator(folder.files);
     var i=0;
 
         for (; !fc.atEnd(); fc.moveNext())
@@ -294,6 +297,7 @@ function headerOutput()
 {
     logger("getAstroCamShot script");
     logger("version " + SCRIPT_VERSION + " from " + SCRIPT_DATE);
+    logger("");
     logger("Camera url: " + RTSP_URL);
     logger("Using verbose mode");            
     logger("");
