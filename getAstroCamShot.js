@@ -106,32 +106,31 @@ function averageImages()
  **********************************************************************/
 function prepareImageFolder()
 {
-	var folder, f, fc;
+        var folder, f, fc;
 
-	// check if Temp folder exists
+        // Ensure Temp folder exists
     if (!objFS.FolderExists(TEMP_IMAGE_DIR))
     {
         objFS.CreateFolder (TEMP_IMAGE_DIR);
         logger("Temp image folder [" + TEMP_IMAGE_DIR + "] created");
-        return;
     }
-    
-    // check if Out folder exists
-	if (!objFS.FolderExists(OUT_FILENAME_PATH))
+
+    // Ensure Out folder exists
+        if (!objFS.FolderExists(OUT_FILENAME_PATH))
     {
         objFS.CreateFolder (OUT_FILENAME_PATH);
         logger("Out image folder [" + OUT_FILENAME_PATH + "] created");
-        return;
     }
-    
+
+    // Clean up Temp folder even if it was just created
     folder = objFS.GetFolder(TEMP_IMAGE_DIR);
-   
+
         fc = new Enumerator(folder.files);
     var i=0;
 
-	for (; !fc.atEnd(); fc.moveNext())
-	{
-		f = fc.item();
+        for (; !fc.atEnd(); fc.moveNext())
+        {
+                f = fc.item();
         objFS.DeleteFile(f.Path);
         i++;
     }
