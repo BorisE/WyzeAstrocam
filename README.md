@@ -69,6 +69,7 @@ Required software:
 ## Version history
 
 ### getAstroCamShot.js
+- v2.3 [2025-08-30] - detect mount motion and append distance to filenames
 - v2.2 [2025-08-30] - bugfix (codex pass)
 - v2.1 [2025-08-30] - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
 - v2.0 [2025-08-29] - connect to ASCOM telescope to append Alt/Az coordinates to filenames
