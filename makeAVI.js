@@ -79,7 +79,7 @@ function prepareImageFolder()
         folder = objFS.GetFolder(AVI_TEMPIMAGES_PATH);
        
         fc = new Enumerator(folder.files);
-        i=0;
+        var i=0;
 
         for (; !fc.atEnd(); fc.moveNext())
         {
@@ -93,8 +93,8 @@ function prepareImageFolder()
     // Copy all files to temp folder
     folder = objFS.GetFolder(OUT_FILENAME_PATH);
    
-	fc = new Enumerator(folder.files);
-    j=1;
+        fc = new Enumerator(folder.files);
+    var j=1;
 	for (; !fc.atEnd(); fc.moveNext())
 	{
 		f = fc.item();
@@ -131,8 +131,8 @@ function prepareImageFolder()
 			//delete all files in temp folder
 			folder = objFS.GetFolder(KEO_TEMP_FOLDER);
 		   
-			fc = new Enumerator(folder.files);
-			i=0;
+                        fc = new Enumerator(folder.files);
+                        var i=0;
 
 			for (; !fc.atEnd(); fc.moveNext())
 			{
