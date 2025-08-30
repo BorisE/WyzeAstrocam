@@ -1,6 +1,6 @@
 /*
     getAstroCamShot.js
-    (c) by Boris Emchenko 2021
+    (c) by Boris Emchenko 2021-2025
     http://astromania.info
     
     Script for creating combined (integrated) image from WyzeCam v3 RTSP stream
@@ -17,6 +17,12 @@
     2) GraphicsMagick package
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
+
+    v 2.1 [2025-08-30]
+    - also write PierSide to filename
+
+    v 2.0 [2025-08-29]
+    - read Alt Az and write it to filename
 
     v 1.2 [2021-11-05]
     - path for out images
