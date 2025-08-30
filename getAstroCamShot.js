@@ -18,11 +18,11 @@
     ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/
     tested with 1.3.36-Q16
 
-
     v 2.1 [2025-08-30]
     - connect to ASCOM telescope to append Alt/Az coordinates and pier side letters to filenames
+    
     v 2.0 [2025-08-29]
-    - read Alt Az and write it to filename
+    - connect to ASCOM telescope to append Alt/Az coordinates to filenames
 
     v 1.2 [2021-11-05]
     - path for out images
@@ -41,7 +41,7 @@
 */
 
 //Options initialization
-var SCRIPT_VERSION            = "2.0";
+var SCRIPT_VERSION            = "2.1";
 var SCRIPT_DATE               = "2025-08-30";
 var RTSP_URL                  = "rtsp://borise:astrotest@192.168.2.112/live";
 var FFMPEG_PATH               = "e:\\Miscellaneous\\ffmpeg\\bin\\ffmpeg.exe";
