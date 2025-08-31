@@ -30,7 +30,7 @@
     -debug or -verbose: output messages (better to use in cscript mode)
    
 */
-var SCRIPT_VERSION            = "2.2";
+var SCRIPT_VERSION            = "2.2a";
 var SCRIPT_DATE               = "2025-08-30";
 
 //Options initialization
@@ -39,11 +39,11 @@ var OUT_FILENAME_PATH 		= "f:\\AllSky\\frames\\";                               
 var OUT_FILENAME_PREFIX 	= "AstroCam_";                                              // Source files should begins with it (format: "AstroCam_2021-11-06_05-00-16.jpg", i.e. AstroCam_YYYY-MM-DD_HH-mm-ss.jpg)
 var AVI_TEMPIMAGES_PATH 	= "f:\\AllSky\\tmpaviimages\\";                             // Temp images folder. mandatory  "/" at the end
 var AVI_OVERLAY_IMAGE 		= "AstroCam_overlay.png";                                   // Full path to overlay image. Could be empty. But if file specified, it should be in place!
-//var AVI_OVERLAY_IMAGE    = "";                                     						// No overlay
+//var AVI_OVERLAY_IMAGE    	= "";                                     						// No overlay
 var AVI_MOVIE_OUTPATH 		= "f:\\AllSky\\";
-var KEO_TEMP_FOLDER 		   = "f:\\AllSky\\keo\\";                                      // Path to temp keogram images folder. mandatory  "/" at the end
+var KEO_TEMP_FOLDER 		= "f:\\AllSky\\keo\\";                                      // Path to temp keogram images folder. mandatory  "/" at the end
 
-var createAVI 				   = true;														            // Create AVI with timelapse
+var createAVI 				= true;														            // Create AVI with timelapse
 var createKeogram 			= true;														            // Create Keogram
 
 var silentMode 				= true;                                                     // Prevent any messages
@@ -65,7 +65,7 @@ var KEOGRAM_FILE = "";   // would be calculated further
  **********************************************************************/
 function prepareImageFolder()
 {
-	 var folder, f, fc;
+	var folder, f, fc;
 
     // check if Out folder (i.e. source) exists
     if (!objFS.FolderExists(OUT_FILENAME_PATH))
@@ -75,7 +75,7 @@ function prepareImageFolder()
     }
     
     // check if temp folder exists
-	 if (!objFS.FolderExists(AVI_TEMPIMAGES_PATH))
+	if (!objFS.FolderExists(AVI_TEMPIMAGES_PATH))
     {
         objFS.CreateFolder (AVI_TEMPIMAGES_PATH);
         logger("Temp avi image folder [" + AVI_TEMPIMAGES_PATH + "] created");
@@ -96,6 +96,7 @@ function prepareImageFolder()
         }
         logger("Emptying temp image folder [" + AVI_TEMPIMAGES_PATH + "]. " + i + " files deleted");
     }
+	logger();
 
     // Copy all files to temp folder
     folder = objFS.GetFolder(OUT_FILENAME_PATH);
@@ -103,7 +104,7 @@ function prepareImageFolder()
     fc = new Enumerator(folder.files);
     var j=1;
     for (; !fc.atEnd(); fc.moveNext())
- 	 {
+ 	{
         f = fc.item();
         var oldFileName = f.Name;
         if (j==1) {
@@ -122,8 +123,8 @@ function prepareImageFolder()
         objFS.CopyFile(f.Path, AVI_TEMPIMAGES_PATH + newFileName);
         j++;
     }
-    logger((j-1) + " files copied with auto renaming");
-
+    logger((j-1) + " frames from [" + OUT_FILENAME_PATH + "] copied to [" + AVI_TEMPIMAGES_PATH + "] with auto renaming");
+	logger();
 	
 	if (createKeogram) 
 	{
@@ -138,8 +139,8 @@ function prepareImageFolder()
 			//delete all files in temp folder
 			folder = objFS.GetFolder(KEO_TEMP_FOLDER);
 		   
-         fc = new Enumerator(folder.files);
-         var i=0;
+			fc = new Enumerator(folder.files);
+			var i=0;
 
 			for (; !fc.atEnd(); fc.moveNext())
 			{
@@ -150,6 +151,9 @@ function prepareImageFolder()
 			logger("Emptying temp keogram images folder [" + KEO_TEMP_FOLDER + "]. " + i + " files deleted");
 		}
 	}
+	logger();
+	
+	return 0;
 }
 
 /**********************************************************************
